@@ -8,7 +8,7 @@ import java.util.Map;
 
 @RestController // JSON 처리
 @RequestMapping("/products")
-public class ProductController {
+public class ProductController2_3 {
 
     // 가상의 메모리 상품 저장소
     private Map<Long, Product> productMap = new HashMap<>();
@@ -16,7 +16,7 @@ public class ProductController {
     // 상품의 시리얼 넘버를 순차 생성
     private long nextId = 1;
 
-    public ProductController() {
+    public ProductController2_3() {
         productMap.put(nextId, new Product(nextId, "에어컨", 1000000));
         nextId++;
         productMap.put(nextId, new Product(nextId, "세탁기", 1500000));
