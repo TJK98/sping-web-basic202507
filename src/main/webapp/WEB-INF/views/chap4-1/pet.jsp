@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Study</title>
+</head>
+<body>
+    <h1>애완동물 페이지 입니다.</h1>
+    <%--  애완동물 목록 서버 사이드 랜더링  --%>
+    <%--  자바 스크립트로 해주면 클라이언트 서버 랜더링 CSR  --%>
+    <%--  서버 사이드 랜더링은 자바에서 해주는 거다  --%>
+    <ul>
+        <c:forEach var="pet" items="${petList}">
+            <li>
+                이름: ${pet.name}, 종: ${pet.kind},
+                나이: ${pet.age}살, 접종여부: ${pet.injection}
+            </li>
+        </c:forEach>
+    </ul>
+</body>
+</html>
