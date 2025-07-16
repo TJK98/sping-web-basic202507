@@ -18,6 +18,16 @@ public class Member {
     private String password;
     private String nickname;
 
+    // DTO를 Entity로 변환하는 생성자
+/*
+    public Member(MemberCreateDto dto) {
+        this.uid = UUID.randomUUID().toString();
+        this.account = dto.getUserAcc();
+        this.password = dto.getPw();
+        this.nickname = dto.getNick();
+    }
+*/
+
 
     /*private Member(Builder builder) {
         this.uid = UUID.randomUUID().toString(); // 랜덤값으로 추철
