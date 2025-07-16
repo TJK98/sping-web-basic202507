@@ -2,14 +2,18 @@ package com.spring.basic.chap5_3.controller;
 
 import com.spring.basic.chap3_2.entity.Member;
 import com.spring.basic.chap5_3.dto.request.MemberCreateDto;
+import com.spring.basic.chap5_4.dto.response.MemberListResponse;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/api/v5-3/members") //리소스: 앞에는 접두사 뒤에는 관례적으로 복수형을 사용한다
@@ -61,16 +65,27 @@ public class MemberController5_3 {
 
         log.info("/api/v5-3/members : GET - 요청 시작!");
 
-        List<Member> members = new ArrayList<>(memberStore.values());
+        /*List<Member> members = new ArrayList<>(memberStore.values());
 
-        log.debug("members.size = {}", members.size());
+        List<MemberListResponse> responses = new ArrayList<>();
 
-        if (members.size() <= 0) {
+        for (Member m : members) {
+            responses.add(MemberListResponse.from(m));
+        }*/
+
+        List<MemberListResponse> responses = memberStore.values()
+                .stream()
+                .map(MemberListResponse::from)
+                .collect(toList());
+
+        log.debug("members.size = {}", responses.size());
+
+        if (responses.size() <= 0) {
             log.warn("회원 데이터가 없습니다.");
             return ResponseEntity.notFound().build();
         }
 
-        log.debug("members[0].nickname = {}", members.get(0).getNickname());
+        log.debug("members[0].nickname = {}", responses.get(0).getNick());
 
         try {
 
@@ -82,12 +97,32 @@ public class MemberController5_3 {
         log.trace("memberList 메서드 호출 종료됨");
         return ResponseEntity
                 .ok()
-                .body(members);
+                .body(responses);
     }
 
     // 회원 생성
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody MemberCreateDto dto) {
+    public ResponseEntity<?> create(
+            @RequestBody @Valid MemberCreateDto dto
+            // 입력값 검증 오류 내용을 갖고 있는 객체
+            , BindingResult bindingResult
+    ) {
+        if (bindingResult.hasErrors()) { // 검증 결과 에러가 있다면
+            /*List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            for (FieldError err : fieldErrors) {
+                String field = err.getField();
+                String defaultMessage = err.getDefaultMessage();
+                System.out.println("field = " + field);
+                System.out.println("defaultMessage = " + defaultMessage);
+            }*/
+            Map<String, String> errorMap = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(err -> {
+                errorMap.put(err.getField(), err.getDefaultMessage());
+            });
+
+            log.warn("회원가입 입력값 오류가 발생함!");
+            return ResponseEntity.badRequest().body(errorMap);
+        }
 
         log.info("pram - {}", dto);
 
