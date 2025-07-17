@@ -1,3 +1,4 @@
+/*
 package com.spring.basic.score.controller;
 
 import org.springframework.stereotype.Controller;
@@ -19,4 +20,4 @@ public class ScorePageController {
     public String showScoreDetailPage() {
         return "score/score-detail"; // -> /WEB-INF/views/score/score-detail.jsp
     }
-}
+}*/

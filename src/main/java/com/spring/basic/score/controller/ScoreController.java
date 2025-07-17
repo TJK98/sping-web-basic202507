@@ -1,3 +1,4 @@
+/*
 package com.spring.basic.score.controller;
 
 import com.spring.basic.score.dto.request.ScoreRequestDto;
@@ -17,13 +18,13 @@ import java.util.Map;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 
-/*
     1. POST - 등록 API
     2. GET - 전체 조회
     3. DELETE - 삭제
     4. GET - 상세 조회
     5. 프론트 연동 (JS)
- */
+
+
 
 @RestController
 @RequestMapping("/api/v1/scores")
@@ -33,7 +34,6 @@ public class ScoreController {
     private Map<Long, Score> scoreMap = new HashMap<>();
     private long id = 1L;
 
-/*
      1단계: 클라이언트 → 서버로 점수 데이터를 보냄
      2단계: 컨트롤러가 DTO로 데이터를 받음
      3단계: DTO → Entity로 변환
@@ -49,7 +49,8 @@ public class ScoreController {
     Map에 저장 (id 자동 증가)
                 ↓
     응답: "등록 완료!" or 저장된 객체 반환
-*/
+
+
     @PostMapping
     public ResponseEntity<?> registerScore ( // 이 메서드는 HTTP 요청을 처리하고, 응답(Response)을 반환
             @RequestBody // 클라이언트가 요청 본문(body)에 보낸 JSON을 자바 객체(dto)로 변환 (매핑)
@@ -93,7 +94,6 @@ public class ScoreController {
         return ResponseEntity.ok("등록 완료!");
     }
 
-/*
          1단계: 클라이언트가 목록 조회 요청 보냄 (정렬 기준 포함)
          2단계: Map에서 모든 성적 데이터 추출
          3단계: List<Score>로 변환 후 정렬 기준에 맞게 정렬
@@ -106,7 +106,8 @@ public class ScoreController {
          이름순으로 정렬 (Comparator 사용)
                      ↓
          응답: 정렬된 전체 성적 리스트 (JSON)
- */
+
+
     @GetMapping
     public ResponseEntity<?> getScoreList(
             @RequestParam(defaultValue = "id") String sort
@@ -130,3 +131,4 @@ public class ScoreController {
         }
     }
 }
+*/

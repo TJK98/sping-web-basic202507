@@ -1,9 +1,11 @@
+/*
 package com.spring.basic.score.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spring.basic.score.entity.Score;
 import lombok.*;
 
+*/
 /*
     [응답용 DTO: ScoreResponseDto]
 
@@ -11,7 +13,8 @@ import lombok.*;
     - 내부 Entity(Score)를 외부에 직접 노출하지 않고,
       필요한 정보만 선별하여 전달합니다.
     - 프론트엔드에서 요구하는 필드명(JSON Key)에 맞춰 @JsonProperty를 설정합니다.
- */
+ *//*
+
 @Getter
 @Setter
 @ToString
@@ -35,7 +38,8 @@ public class ScoreResponseDto {
     @JsonProperty("rank")
     private int rank; // 석차 (초기값은 0, 후처리에서 계산)
 
-    /**
+    */
+/**
      * 정적 팩토리 메서드 (Static Factory Method)
      * - Score 엔티티 객체를 받아서,
      *   클라이언트 응답용 DTO로 변환
@@ -43,7 +47,8 @@ public class ScoreResponseDto {
      *
      * @param score 성적 정보 엔티티
      * @return ScoreResponseDto 변환 객체
-     */
+     *//*
+
     public static ScoreResponseDto from(Score score) {
         return ScoreResponseDto.builder()
                 .id(score.getId())
@@ -54,7 +59,8 @@ public class ScoreResponseDto {
                 .build();
     }
 
-    /**
+    */
+/**
      * 이름 마스킹 유틸리티
      * - 이름 길이에 따라 마스킹 규칙 적용
      *   - 2글자: 마지막 글자만 마스킹
@@ -63,7 +69,8 @@ public class ScoreResponseDto {
      *
      * @param name 마스킹 대상 이름
      * @return 마스킹 처리된 이름 문자열
-     */
+     *//*
+
     private static String maskName(String name) {
         if (name == null || name.length() < 2) return name;
 
@@ -84,3 +91,4 @@ public class ScoreResponseDto {
         return sb.toString();
     }
 }
+*/
