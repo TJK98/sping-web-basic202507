@@ -158,7 +158,7 @@
                 $scores.innerHTML += `
                     <li data-score-id="\${id}">
                         # 이름: <a href="/score/\${id}">\${maskingName}</a>, 총점: \${sum}점,
-                        평균: \${avg}점, 석차: \${rank}
+                        평균: \${avg.toFixed(2)}점, 석차: \${rank}
                         <a href='#' class='del-btn'>삭제</a>
                     </li>
                 `;
@@ -202,6 +202,8 @@
             } else if (res.status === 400) {
                 // 서버의 에러 메시지 파싱
                 const errorJson = await res.json();
+                console.log(errorJson);
+
                 for (const property in errorJson) {
                     document.getElementById(property).textContent = errorJson[property];
                 }
@@ -238,6 +240,7 @@
             e.preventDefault(); // form의 submit시 발생하는 새로고침 방지
 
             const $form = document.getElementById('score-form');
+
             // formData객체 생성
             const formData = new FormData($form);
             const scoreObj = Object.fromEntries(formData.entries());
